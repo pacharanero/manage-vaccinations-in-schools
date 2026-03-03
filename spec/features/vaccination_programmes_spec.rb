@@ -116,7 +116,10 @@ describe "Vaccination programmes table" do
         "td.nhsuk-table__cell",
         text: "Needs consent"
       )
-      expect(row).to have_selector("td.nhsuk-table__cell", text: "No response")
+      expect(row).to have_selector(
+        "td.nhsuk-table__cell",
+        text: "Request scheduled"
+      )
     end
 
     expect(page).to have_selector(
@@ -127,7 +130,10 @@ describe "Vaccination programmes table" do
         "td.nhsuk-table__cell",
         text: "Needs consent"
       )
-      expect(row).to have_selector("td.nhsuk-table__cell", text: "No response")
+      expect(row).to have_selector(
+        "td.nhsuk-table__cell",
+        text: "Request scheduled"
+      )
     end
   end
 

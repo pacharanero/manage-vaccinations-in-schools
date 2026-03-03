@@ -24,12 +24,7 @@ class PatientSessions::ConsentsController < PatientSessions::BaseController
   end
 
   def send_request
-    unless @patient.programme_status(
-             @programme,
-             academic_year: @academic_year
-           ).needs_consent_no_response?
-      return
-    end
+    return unless consent_request_needed?
 
     # For programmes that are administered together we should send the consent request together.
     programmes =
@@ -142,5 +137,14 @@ class PatientSessions::ConsentsController < PatientSessions::BaseController
 
   def invalidate_params
     params.expect(consent: :notes).merge(invalidated_at: Time.current)
+  end
+
+  def consent_request_needed?
+    programme_status =
+      @patient.programme_status(@programme, academic_year: @academic_year)
+
+    programme_status.needs_consent_no_response? ||
+      programme_status.needs_consent_request_scheduled? ||
+      programme_status.needs_consent_request_not_scheduled?
   end
 end
