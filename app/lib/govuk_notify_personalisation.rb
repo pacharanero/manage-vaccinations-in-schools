@@ -74,6 +74,7 @@ class GovukNotifyPersonalisation
       outcome_not_administered:,
       patient_date_of_birth:,
       reason_did_not_vaccinate:,
+      follow_up_discussion:,
       reason_for_refusal:,
       short_patient_name:,
       short_patient_name_apos:,
@@ -402,6 +403,10 @@ class GovukNotifyPersonalisation
       scope: "mailers.vaccination_mailer.reasons_did_not_vaccinate",
       short_patient_name:
     )
+  end
+
+  def follow_up_discussion
+    consent_form&.follow_up_requested
   end
 
   def reason_for_refusal
