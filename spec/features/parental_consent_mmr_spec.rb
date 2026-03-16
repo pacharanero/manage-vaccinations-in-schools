@@ -165,6 +165,20 @@ describe "Parental consent" do
     click_button "Continue"
   end
 
+  def then_i_see_the_follow_up_question
+    expect(page).to have_content(
+      "Would you like a member of the team to contact you to discuss alternative options?"
+    )
+    expect(page).to have_content(
+      "For example, it may be possible to use a vaccine that does not contain gelatine."
+    )
+  end
+
+  def when_i_answer_no_to_the_follow_up_question_and_continue
+    choose "No"
+    click_button "Continue"
+  end
+
   def and_i_see_the_refusal_reason_on_the_check_and_confirm_page
     expect(page).to have_content("I’m concerned the vaccine contains gelatine")
   end
