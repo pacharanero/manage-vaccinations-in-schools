@@ -78,7 +78,8 @@ class NotifyLogEntry < ApplicationRecord
          vaccination_administered: 10,
          vaccination_already_had: 11,
          vaccination_not_administered: 12,
-         vaccination_deleted: 13
+         vaccination_deleted: 13,
+         follow_up_resolution: 14
        }
 
   validates :recipient, presence: true

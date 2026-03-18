@@ -96,7 +96,7 @@ class AppActivityLogComponent < ViewComponent::Base
     @notify_log_entries =
       @patient
         .notify_log_entries
-        .includes(:sent_by)
+        .includes(:consent, :sent_by)
         .preload(:notify_log_entry_programmes)
         .then do |scope|
           if programme_type
@@ -219,7 +219,7 @@ class AppActivityLogComponent < ViewComponent::Base
       original_response =
         if consent.withdrawn?
           "given"
-        elsif consent.follow_up_requested?
+        elsif consent.follow_up_requested? || consent.follow_up_resolved?
           "follow_up_requested"
         else
           consent.response
@@ -252,7 +252,7 @@ class AppActivityLogComponent < ViewComponent::Base
         }
       end
 
-      if consent.invalidated?
+      if consent.invalidated? && !consent.follow_up_resolved?
         events << {
           title: "Consent from #{consent.name} invalidated",
           at: consent.invalidated_at,
@@ -264,6 +264,16 @@ class AppActivityLogComponent < ViewComponent::Base
         events << {
           title: "Consent from #{consent.name} withdrawn",
           at: consent.withdrawn_at,
+          programmes: [consent.programme]
+        }
+      end
+
+      if consent.follow_up_resolved?
+        events << {
+          title:
+            "Consent response from #{consent.name} (#{consent.who_responded.downcase_first}) " \
+              "followed-up: refusal #{consent.follow_up_outcome}",
+          at: consent.follow_up_resolved_at,
           programmes: [consent.programme]
         }
       end
@@ -376,8 +386,19 @@ class AppActivityLogComponent < ViewComponent::Base
 
   def notify_events
     notify_log_entries.map do |notify_log_entry|
+      title =
+        if notify_log_entry.follow_up_resolution?
+          consent = notify_log_entry.consent
+          outcome =
+            consent&.response_given? ? "give consent" : "confirm refusal"
+          "Confirmation of follow-up decision to #{outcome} sent to " \
+            "#{consent&.name} (#{consent&.who_responded&.downcase_first})"
+        else
+          "#{notify_log_entry.title} sent"
+        end
+
       {
-        title: "#{notify_log_entry.title} sent",
+        title:,
         body: patient.restricted? ? "" : notify_log_entry.recipient,
         at: notify_log_entry.created_at,
         by: notify_log_entry.sent_by,

@@ -100,7 +100,8 @@ class DraftConsentsController < ApplicationController
       @consent.notifier.send_confirmation(
         session: @session,
         triage: @triage,
-        sent_by: current_user
+        sent_by: current_user,
+        follow_up_resolution: @draft_consent.follow_up_consent_id.present?
       )
     end
 

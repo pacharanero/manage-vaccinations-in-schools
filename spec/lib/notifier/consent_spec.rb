@@ -182,6 +182,31 @@ describe Notifier::Consent do
       end
     end
 
+    context "when resolving a follow-up" do
+      subject(:send_confirmation) do
+        notifier.send_confirmation(
+          session:,
+          triage:,
+          sent_by:,
+          follow_up_resolution: true
+        )
+      end
+
+      let(:patient) { create(:patient, :consent_refused, session:) }
+
+      it "sends an email with the follow_up_resolution purpose" do
+        expect { send_confirmation }.to have_delivered_email(
+          :consent_confirmation_refused
+        ).with(consent:, session:, sent_by:, purpose: :follow_up_resolution)
+      end
+
+      it "sends a text message with the follow_up_resolution purpose" do
+        expect { send_confirmation }.to have_delivered_sms(
+          :consent_confirmation_refused
+        ).with(consent:, session:, sent_by:, purpose: :follow_up_resolution)
+      end
+    end
+
     context "if the patient is deceased" do
       let(:patient) do
         create(

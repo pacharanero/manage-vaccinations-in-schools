@@ -16,6 +16,7 @@ class SMSDeliveryJob < NotifyDeliveryJob
     parent: nil,
     patient: nil,
     programme_types: [],
+    purpose: nil,
     sent_by: nil,
     session: nil,
     team: nil,
@@ -89,6 +90,7 @@ class SMSDeliveryJob < NotifyDeliveryJob
       end
 
     NotifyLogEntry.create!(
+      consent:,
       consent_form: personalisation.consent_form,
       delivery_id:,
       delivery_status:,
@@ -98,7 +100,8 @@ class SMSDeliveryJob < NotifyDeliveryJob
       sent_by:,
       template_id: log_template_id,
       type: :sms,
-      purpose: NotifyLogEntry.purpose_for_template_name(template_name_sym),
+      purpose:
+        purpose || NotifyLogEntry.purpose_for_template_name(template_name_sym),
       notify_log_entry_programmes_attributes:
         personalisation.programmes.map do
           { programme_type: it.type, disease_types: it.disease_types }

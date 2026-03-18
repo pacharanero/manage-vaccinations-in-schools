@@ -235,6 +235,40 @@ describe EmailDeliveryJob do
         end
       end
     end
+
+    context "with a consent" do
+      let(:consent) { create(:consent, patient:, programme: programmes.first) }
+
+      it "stores the consent on the log entry" do
+        perform_now
+        expect(NotifyLogEntry.last.consent).to eq(consent)
+      end
+    end
+
+    context "with a purpose override" do
+      subject(:perform_now) do
+        described_class.perform_now(
+          template_name,
+          academic_year:,
+          consent:,
+          consent_form:,
+          disease_types:,
+          parent:,
+          patient:,
+          programme_types:,
+          purpose: :follow_up_resolution,
+          sent_by:,
+          session:,
+          team:,
+          vaccination_record:
+        )
+      end
+
+      it "creates a log entry with the overridden purpose" do
+        perform_now
+        expect(NotifyLogEntry.last.purpose).to eq("follow_up_resolution")
+      end
+    end
   end
 
   describe "#perform_later" do

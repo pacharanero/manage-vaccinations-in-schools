@@ -7,10 +7,17 @@ class Notifier::Consent
     @consent = consent
   end
 
-  def send_confirmation(session:, triage:, sent_by:)
+  def send_confirmation(
+    session:,
+    triage:,
+    sent_by:,
+    follow_up_resolution: false
+  )
     return unless send_notification?
 
+    purpose = :follow_up_resolution if follow_up_resolution
     params = { consent:, session:, sent_by: }
+    params[:purpose] = purpose if purpose
 
     if triage
       send_triage_email(triage, params)
