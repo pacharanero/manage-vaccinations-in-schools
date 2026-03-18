@@ -561,6 +561,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_112719) do
 
   create_table "notify_log_entries", force: :cascade do |t|
     t.bigint "consent_form_id"
+    t.bigint "consent_id"
     t.datetime "created_at", null: false
     t.uuid "delivery_id"
     t.integer "delivery_status", default: 0, null: false
@@ -572,6 +573,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_112719) do
     t.uuid "template_id", null: false
     t.integer "type", null: false
     t.index ["consent_form_id"], name: "index_notify_log_entries_on_consent_form_id"
+    t.index ["consent_id"], name: "index_notify_log_entries_on_consent_id"
     t.index ["delivery_id"], name: "index_notify_log_entries_on_delivery_id"
     t.index ["parent_id"], name: "index_notify_log_entries_on_parent_id"
     t.index ["patient_id"], name: "index_notify_log_entries_on_patient_id"
@@ -1142,6 +1144,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_112719) do
   add_foreign_key "notes", "sessions"
   add_foreign_key "notes", "users", column: "created_by_user_id"
   add_foreign_key "notify_log_entries", "consent_forms"
+  add_foreign_key "notify_log_entries", "consents"
   add_foreign_key "notify_log_entries", "parents", on_delete: :nullify
   add_foreign_key "notify_log_entries", "patients"
   add_foreign_key "notify_log_entries", "users", column: "sent_by_user_id"
