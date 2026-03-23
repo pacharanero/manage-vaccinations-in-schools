@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_18_112719) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_23_093917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -1015,7 +1015,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_112719) do
     t.string "performed_ods_code"
     t.enum "programme_type", null: false, enum_type: "programme_type"
     t.integer "protocol"
-    t.datetime "reported_at"
     t.bigint "reported_by_id"
     t.bigint "session_id"
     t.integer "source", null: false
@@ -1243,4 +1242,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_112719) do
   add_index "reporting_api_totals", ["patient_year_group"], name: "ix_rapi_totals_year_group"
   add_index "reporting_api_totals", ["session_location_id"], name: "ix_rapi_totals_session_loc"
   add_index "reporting_api_totals", ["team_id", "academic_year", "programme_type", "status"], name: "ix_rapi_totals_team_year_prog_status"
+
 end
