@@ -44,6 +44,17 @@ describe AppCardComponent do
 
     it { should have_css(".nhsuk-card--clickable") }
     it { should have_link(href: "foo") }
+
+    context "with clickable: false" do
+      subject do
+        render_inline(described_class.new(link_to: "foo", clickable: false)) do
+          it.with_heading { "Test" }
+        end
+      end
+
+      it { should_not have_css(".nhsuk-card--clickable") }
+      it { should have_link(href: "foo") }
+    end
   end
 
   context "with a colour" do
