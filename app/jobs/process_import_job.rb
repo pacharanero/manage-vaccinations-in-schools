@@ -14,6 +14,8 @@ class ProcessImportJob < ApplicationJob
       return if import.rows_are_invalid?
 
       import.process!
+
+      TeamCachedCounts.new(import.team).reset_import_issues!
     end
   end
 end
