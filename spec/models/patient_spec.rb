@@ -250,7 +250,7 @@ describe Patient do
       end
 
       context "in a session with the right year group for the programme but not the location" do
-        let(:location) { create(:school, :secondary) }
+        let(:location) { create(:gias_school, :secondary) }
         let(:patient) { create(:patient, session:, year_group: 9) }
         let(:session) { create(:session, location:, programmes:) }
 
@@ -273,7 +273,7 @@ describe Patient do
         let(:hpv_programme) { Programme.hpv }
 
         let(:location) do
-          create(:school, programmes: [flu_programme, hpv_programme])
+          create(:gias_school, programmes: [flu_programme, hpv_programme])
         end
         let(:academic_year) { AcademicYear.current }
 
@@ -343,7 +343,7 @@ describe Patient do
       end
 
       context "in a session with the right year group for the programme but not the location" do
-        let(:location) { create(:school, :secondary) }
+        let(:location) { create(:gias_school, :secondary) }
         let(:session) { create(:session, location:, programmes:) }
         let(:patient) { create(:patient, session:, year_group: 9) }
 
@@ -366,7 +366,7 @@ describe Patient do
         let(:hpv_programme) { Programme.hpv }
 
         let(:location) do
-          create(:school, programmes: [flu_programme, hpv_programme])
+          create(:gias_school, programmes: [flu_programme, hpv_programme])
         end
         let(:academic_year) { AcademicYear.current }
 
@@ -637,7 +637,7 @@ describe Patient do
 
   describe "validations" do
     context "with an invalid GP practice" do
-      subject(:patient) { build(:patient, gp_practice: create(:school)) }
+      subject(:patient) { build(:patient, gp_practice: create(:gias_school)) }
 
       it "is invalid" do
         expect(patient.valid?).to be(false)
@@ -775,7 +775,7 @@ describe Patient do
     let(:patient) { create(:patient) }
     let(:team) { create(:team) }
     let(:academic_year) { 2025 }
-    let(:school) { create(:school, team:) }
+    let(:school) { create(:gias_school, team:) }
 
     shared_examples "not_in_team? behavior" do
       context "when the patient is in the team" do
@@ -798,7 +798,7 @@ describe Patient do
 
       context "when the patient is in a different team" do
         let(:other_team) { create(:team) }
-        let(:other_school) { create(:school, team: other_team) }
+        let(:other_school) { create(:gias_school, team: other_team) }
 
         before do
           SchoolMove.new(
@@ -835,7 +835,7 @@ describe Patient do
 
     let(:programmes) { [Programme.flu, Programme.hpv] }
     let(:team) { create(:team, programmes:) }
-    let(:school) { create(:school, team:) }
+    let(:school) { create(:gias_school, team:) }
 
     context "outside the preparation period" do
       around { |example| travel_to(Date.new(2025, 7, 31)) { example.run } }
@@ -1125,7 +1125,7 @@ describe Patient do
 
       let(:programme) { Programme.sample }
       let(:team) { create(:team, programmes: [programme]) }
-      let(:school) { create(:school, team:) }
+      let(:school) { create(:gias_school, team:) }
       let(:session) { create(:session, location: school, team:, programme:) }
 
       it "marks the patient as not invalidated" do
@@ -1284,7 +1284,7 @@ describe Patient do
 
     context "when the old patient has upcoming sessions" do
       let(:team) { create(:team) }
-      let(:location) { create(:school, team:) }
+      let(:location) { create(:gias_school, team:) }
 
       before do
         create(
@@ -1313,7 +1313,7 @@ describe Patient do
 
     context "when the old patient has a school move to a school" do
       let(:team) { create(:team) }
-      let(:school) { create(:school, team:) }
+      let(:school) { create(:gias_school, team:) }
 
       before { create(:school_move, :to_school, patient: old_patient, school:) }
 

@@ -186,7 +186,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let(:new_sessions) do
             create_list(
               :session,
@@ -209,7 +209,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let(:new_sessions) do
             create_list(
               :session,
@@ -248,7 +248,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let(:new_sessions) do
             create_list(
               :session,
@@ -272,7 +272,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let(:new_sessions) do
             create_list(
               :session,
@@ -314,7 +314,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let(:new_sessions) do
             create_list(
               :session,
@@ -338,7 +338,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let(:new_sessions) do
             create_list(
               :session,
@@ -374,7 +374,7 @@ describe SchoolMove do
           end
 
           let(:new_team) { create(:team, programmes:) }
-          let(:school) { create(:school, team: new_team) }
+          let(:school) { create(:gias_school, team: new_team) }
           let(:new_sessions) do
             create_list(
               :session,
@@ -427,7 +427,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let!(:new_sessions) do # rubocop:disable RSpec/LetSetup
             create_list(
               :session,
@@ -450,7 +450,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let!(:new_sessions) do # rubocop:disable RSpec/LetSetup
             create_list(
               :session,
@@ -488,7 +488,7 @@ describe SchoolMove do
           end
 
           let(:new_team) { create(:team, programmes:) }
-          let(:school) { create(:school, team: new_team) }
+          let(:school) { create(:gias_school, team: new_team) }
           let(:new_sessions) do
             create_list(
               :session,
@@ -556,7 +556,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let!(:new_sessions) do # rubocop:disable RSpec/LetSetup
             create_list(
               :session,
@@ -579,7 +579,7 @@ describe SchoolMove do
             create(:school_move, :to_school, patient:, school:)
           end
 
-          let(:school) { create(:school, team:) }
+          let(:school) { create(:gias_school, team:) }
           let!(:new_sessions) do # rubocop:disable RSpec/LetSetup
             create_list(
               :session,
@@ -614,7 +614,7 @@ describe SchoolMove do
           end
 
           let(:new_team) { create(:team, programmes:) }
-          let(:school) { create(:school, team: new_team) }
+          let(:school) { create(:gias_school, team: new_team) }
           let(:new_sessions) do
             create_list(
               :session,
@@ -744,7 +744,7 @@ describe SchoolMove do
 
     context "when patient has no current school" do
       let(:patient) { create(:patient, school: nil) }
-      let(:new_school) { create(:school, team: team_a) }
+      let(:new_school) { create(:gias_school, team: team_a) }
       let(:school_move) do
         create(:school_move, patient:, school: new_school, academic_year:)
       end
@@ -753,9 +753,9 @@ describe SchoolMove do
     end
 
     context "when patient's current school has no teams" do
-      let(:current_school) { create(:school) }
+      let(:current_school) { create(:gias_school) }
       let(:patient) { create(:patient, school: current_school) }
-      let(:new_school) { create(:school, team: team_a) }
+      let(:new_school) { create(:gias_school, team: team_a) }
       let(:school_move) do
         create(:school_move, patient:, school: new_school, academic_year:)
       end
@@ -764,7 +764,7 @@ describe SchoolMove do
     end
 
     context "when moving to home educated with same team" do
-      let(:current_school) { create(:school, team: team_a) }
+      let(:current_school) { create(:gias_school, team: team_a) }
       let(:patient) { create(:patient, school: current_school) }
       let(:school_move) do
         create(
@@ -780,7 +780,7 @@ describe SchoolMove do
     end
 
     context "when moving to home educated with different team" do
-      let(:current_school) { create(:school, team: team_a) }
+      let(:current_school) { create(:gias_school, team: team_a) }
       let(:patient) do
         create(:patient, school: current_school, location: current_school)
       end
@@ -798,7 +798,7 @@ describe SchoolMove do
     end
 
     context "when moving to unknown school with same team" do
-      let(:current_school) { create(:school, team: team_a) }
+      let(:current_school) { create(:gias_school, team: team_a) }
       let(:patient) { create(:patient, school: current_school) }
       let(:school_move) do
         create(
@@ -814,7 +814,7 @@ describe SchoolMove do
     end
 
     context "when moving to unknown school with different team" do
-      let(:current_school) { create(:school, team: team_a) }
+      let(:current_school) { create(:gias_school, team: team_a) }
       let(:patient) do
         create(:patient, school: current_school, location: current_school)
       end
@@ -832,8 +832,8 @@ describe SchoolMove do
     end
 
     context "when moving within the same team" do
-      let(:current_school) { create(:school, team: team_a) }
-      let(:new_school) { create(:school, team: team_a) }
+      let(:current_school) { create(:gias_school, team: team_a) }
+      let(:new_school) { create(:gias_school, team: team_a) }
       let(:patient) { create(:patient, school: current_school) }
       let(:school_move) do
         create(:school_move, patient:, school: new_school, academic_year:)
@@ -843,8 +843,8 @@ describe SchoolMove do
     end
 
     context "when current school is in multiple teams and moving to one of them" do
-      let(:current_school) { create(:school) }
-      let(:new_school) { create(:school, team: team_b) }
+      let(:current_school) { create(:gias_school) }
+      let(:new_school) { create(:gias_school, team: team_b) }
       let(:patient) { create(:patient, school: current_school) }
       let(:school_move) do
         create(:school_move, patient:, school: new_school, academic_year:)
@@ -869,8 +869,8 @@ describe SchoolMove do
     end
 
     context "when moving to a different team" do
-      let(:current_school) { create(:school, team: team_a) }
-      let(:new_school) { create(:school, team: team_b) }
+      let(:current_school) { create(:gias_school, team: team_a) }
+      let(:new_school) { create(:gias_school, team: team_b) }
       let(:patient) do
         create(:patient, school: current_school, location: current_school)
       end
@@ -883,8 +883,8 @@ describe SchoolMove do
 
     context "when moving to a school with multiple teams, none matching current" do
       let(:team_c) { create(:team) }
-      let(:current_school) { create(:school, team: team_a) }
-      let(:new_school) { create(:school) }
+      let(:current_school) { create(:gias_school, team: team_a) }
+      let(:new_school) { create(:gias_school) }
       let(:patient) do
         create(:patient, school: current_school, location: current_school)
       end

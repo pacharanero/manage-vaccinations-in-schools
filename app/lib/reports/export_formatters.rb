@@ -4,7 +4,7 @@ module Reports::ExportFormatters
   extend ActiveSupport::Concern
 
   def school_urn(location:, patient:)
-    if location&.school?
+    if location&.gias_school?
       location.urn
     elsif patient.home_educated?
       "999999"
@@ -16,11 +16,11 @@ module Reports::ExportFormatters
   end
 
   def school_name(location:, patient:)
-    location&.school? ? location.name : patient.school&.name || ""
+    location&.gias_school? ? location.name : patient.school&.name || ""
   end
 
   def care_setting(location:)
-    if location&.school?
+    if location&.gias_school?
       ImmunisationImportRow::CARE_SETTING_SCHOOL
     else
       ImmunisationImportRow::CARE_SETTING_COMMUNITY
@@ -28,7 +28,7 @@ module Reports::ExportFormatters
   end
 
   def clinic_name(location:, vaccination_record:)
-    location&.school? ? "" : vaccination_record.location_name
+    location&.gias_school? ? "" : vaccination_record.location_name
   end
 
   def consent_status(patient:, programme:, academic_year:)
