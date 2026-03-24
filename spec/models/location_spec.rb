@@ -142,8 +142,8 @@ describe Location do
       end
     end
 
-    describe "#where_phase" do
-      subject { described_class.where_phase(phase) }
+    describe "#where_gias_phase" do
+      subject { described_class.where_gias_phase(phase) }
 
       let!(:nursery) { create(:school, gias_phase: "nursery") }
       let!(:primary) { create(:school, gias_phase: "primary") }

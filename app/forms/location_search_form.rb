@@ -14,7 +14,7 @@ class LocationSearchForm < SearchForm
   private
 
   def filter_phase(scope)
-    phase.present? ? scope.where_phase(phase) : scope
+    phase.present? ? scope.where_gias_phase(phase) : scope
   end
 
   def filter_name(scope)

@@ -122,7 +122,7 @@ class Location < ApplicationRecord
           )
         end
 
-  scope :where_phase,
+  scope :where_gias_phase,
         ->(phase) { where(gias_phase: GIAS_PHASE_MAPPINGS.fetch(phase)) }
 
   scope :with_team,
