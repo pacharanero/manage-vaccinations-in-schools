@@ -118,8 +118,7 @@ FactoryBot.define do
     registration { Faker::Alphanumeric.alpha(number: 2).upcase }
     registration_academic_year { academic_year if registration.present? }
 
-    # TODO: school?
-    school { session.location if session&.location&.gias_school? }
+    school { session.location if session&.location&.school? }
     home_educated { school.present? ? nil : false }
 
     address_line_1 { Faker::Address.street_address }
