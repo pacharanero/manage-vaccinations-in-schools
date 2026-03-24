@@ -52,7 +52,7 @@ describe "HPV vaccination" do
   end
 
   def and_i_record_that_the_patient_was_unwell
-    within all("section")[1] do
+    within all("fieldset")[1] do
       choose "No"
       click_button "Continue"
     end

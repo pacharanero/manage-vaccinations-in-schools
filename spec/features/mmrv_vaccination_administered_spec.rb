@@ -181,11 +181,11 @@ describe "MMRV vaccination" do
   def when_i_begin_recording_the_vaccination_for_mmrv
     expect(page).to have_content("Record MMRV vaccination")
 
-    within all("section")[0] do
+    within all("fieldset")[0] do
       check "I have checked that the above statements are true"
     end
 
-    within all("section")[1] do
+    within all("fieldset")[1] do
       choose "Yes"
       choose "Left arm (upper position)"
       click_button "Continue"
@@ -195,11 +195,11 @@ describe "MMRV vaccination" do
   def and_i_begin_recording_the_vaccination_for_mmr
     expect(page).to have_content("Record MMR vaccination")
 
-    within all("section")[0] do
+    within all("fieldset")[0] do
       check "I have checked that the above statements are true"
     end
 
-    within all("section")[1] do
+    within all("fieldset")[1] do
       choose "Yes"
       choose "Left arm (upper position)"
       click_button "Continue"

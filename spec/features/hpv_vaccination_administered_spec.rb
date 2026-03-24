@@ -170,7 +170,7 @@ describe "HPV vaccination" do
   end
 
   def and_i_record_that_the_patient_has_been_vaccinated(where)
-    within all("section")[1] do
+    within all("fieldset")[1] do
       choose "Yes"
       choose where
       click_button "Continue"

@@ -146,7 +146,7 @@ describe "Flu vaccination" do
 
     check "I have checked that the above statements are true"
     select "NURSE, Supplying"
-    within all("section")[1] do
+    within all("fieldset")[1] do
       choose "Yes"
     end
     click_on "Continue"

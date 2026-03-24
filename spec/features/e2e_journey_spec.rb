@@ -265,11 +265,11 @@ describe "End-to-end journey" do
 
     expect(page).to have_content("Update attendance")
 
-    within all("section")[0] do
+    within all("fieldset")[0] do
       check "I have checked that the above statements are true"
     end
 
-    within all("section")[1] do
+    within all("fieldset")[1] do
       choose "Yes"
       choose "Left arm (upper position)"
       click_button "Continue"
