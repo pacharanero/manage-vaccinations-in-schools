@@ -19,6 +19,13 @@ describe AppSessionActionsComponent do
   before do
     create(
       :patient,
+      :consent_follow_up_requested,
+      :unknown_attendance,
+      session:,
+      year_group:
+    )
+    create(
+      :patient,
       :consent_no_response,
       :unknown_attendance,
       session:,
@@ -59,6 +66,7 @@ describe AppSessionActionsComponent do
   it { should have_text("No NHS number1 child") }
   it { should have_text("Unmatched response1 unmatched response") }
   it { should have_text("No consent response1 child") }
+  it { should have_text("Follow-up requested1 child with follow-up request") }
   it { should have_text("Conflicting consent1 child") }
   it { should have_text("Triage needed1 child") }
   it { should have_text("Register attendance3 child") }
@@ -67,6 +75,7 @@ describe AppSessionActionsComponent do
   it { should have_link("1 child without an NHS number") }
   it { should have_link("1 unmatched response") }
   it { should have_link("1 child with no response") }
+  it { should have_link("1 child with follow-up request") }
   it { should have_link("1 child with conflicting response") }
   it { should have_link("1 child requiring triage") }
   it { should have_link("3 children to register") }
